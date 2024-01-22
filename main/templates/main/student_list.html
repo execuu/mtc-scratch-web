@@ -1,0 +1,72 @@
+{% extends 'main/index.html' %}
+{% block index %}
+<div class="container-fluid">
+  <h3 class="m-4">All Students</h3>
+  <div class="row">
+    <div class="col-12">
+      {% if students %}
+      <div class="card border-danger ms-4 me-4 mb-4">
+        <div class="card-header">
+          <i class="fa-solid fa-user-graduate fa-lg"></i> Student Records
+        </div>
+        <div class="card-body">
+          <p class="card-text">
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">Student Number</th>
+                    <th scope="col">LRN</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Strand</th>
+                    <th scope="col">Grade Level</th>
+                    <th scope="col">Section</th>
+                    <th scope="col">Picture</th>
+                    <th scope="col">School Yr.</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for student in students %}
+                    <tr>
+                      <td>{{ student.studentNumber }}</td>
+                      <td>{{ student.LRN }}</td>
+                      <td>{{ student.firstName }} </td>
+                      <td>{{ student.lastName }}</td>
+                      <td>{{ student.email }}</td>
+                      <td>{{ student.addrs }}</td>
+                      <td>{{ student.strand }}</td>
+                      <td>{{ student.gradeLevel }}</td>
+                      <td>{{ student.section }}</td>
+                      <td><img src="{{ student.picture.url }}" alt="{{ student.firstName }}'s Picture" style="max-width: 100px; max-height: 100px;" class="img-fluid zoomable-image" data-bs-toggle="modal" data-bs-target="#imageModal{{ student.id }}">
+                      <td>{{ student.school_year }}</td>
+                      <td>ACTIONS</td>
+                    </tr>
+                  {% endfor %}
+                  {% for student in students %}
+                  <div class="modal fade" id="imageModal{{ student.id }}" tabindex="-1" aria-labelledby="imageModalLabel{{ student.id }}" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <img src="{{ student.picture.url }}" alt="{{ student.firstName }}'s Picture" class="img-fluid mx-auto d-block" style="max-width: 90vw; max-height: 90vh;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </p>
+        </div>
+      </div>
+      {% else %}
+      <h5 class="alert alert-primary ms-4 me-4">No Student Records</h5>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}
